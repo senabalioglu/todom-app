@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {View,Text, SafeAreaView, ScrollView} from 'react-native';
+import {View, Text, SafeAreaView, ScrollView} from 'react-native';
 import ToDoCard from './components/ToDoCard/ToDoCard';
 import {StyleSheet} from 'react-native';
 import Button from './components/Button/Button';
-import Modal from 'react-native-modal'
+import Modal from 'react-native-modal';
 import ModalView from './components/ModalView/ModalView';
 
 function App() {
@@ -19,7 +19,7 @@ function App() {
       <ScrollView>
         <ToDoCard />
       </ScrollView>
-      <Button onButtonPress={toggleModalVisible} />
+      <Button buttonText={'ToDo Ekle'} onButtonPress={toggleModalVisible} />
       <Modal isVisible={modalVisible} onBackdropPress={toggleModalVisible}>
         <ModalView />
       </Modal>

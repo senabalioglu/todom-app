@@ -1,11 +1,13 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, TextInput} from 'react-native';
 import styles from './ModalView.styles';
+import Button from '../Button/Button';
 
 const ModalView = () => {
   return (
     <View style={styles.modal_container}>
-      <Text>Modal</Text>
+      <TextInput style={{margin: 15, fontSize: 18}} placeholder="ToDo girin..." />
+      <Button  buttonText={"Gönder"} onButtonPress={() => {}}/>
     </View>
   );
 };

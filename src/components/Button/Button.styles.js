@@ -4,11 +4,11 @@ export default StyleSheet.create({
     button: {
         alignItems: "center",
         justifyContent: "center",
-        paddingVertical: 20,
+        padding: 20,
         borderRadius: 15,
         elevation: 3,
         backgroundColor: "#5E4646",
-        margin: 28,
+        margin: 24,
     },
     text: {
         fontSize: 16,
