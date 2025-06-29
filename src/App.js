@@ -1,17 +1,17 @@
 import React from 'react';
-import {View, Text, SafeAreaView} from 'react-native';
+import {View, Text, SafeAreaView, ScrollView} from 'react-native';
 import ToDoCard from './components/ToDoCard/ToDoCard';
 import {StyleSheet} from 'react-native';
+import Button from './components/Button/Button';
 
 function App() {
   return (
-    <SafeAreaView style={styles.mainBackground} >
-      <View>
-        <Text style={styles.mainText} >ToDoM</Text>
-        <View style={{alignItems: 'center', margin: 10}} >
+    <SafeAreaView style={styles.mainBackground}>
+      <Text style={styles.mainText}>ToDoM</Text>
+      <ScrollView>
         <ToDoCard />
-        </View>
-      </View>
+      </ScrollView>
+      <Button />
     </SafeAreaView>
   );
 }
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   mainText: {
     fontSize: 40,
     margin: 20,
-  }
+  },
 });
 
 export default App;
