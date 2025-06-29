@@ -1,17 +1,28 @@
-import React from 'react';
-import {View, Text, SafeAreaView, ScrollView} from 'react-native';
+import React, {useState} from 'react';
+import {View,Text, SafeAreaView, ScrollView} from 'react-native';
 import ToDoCard from './components/ToDoCard/ToDoCard';
 import {StyleSheet} from 'react-native';
 import Button from './components/Button/Button';
+import Modal from 'react-native-modal'
+import ModalView from './components/ModalView/ModalView';
 
 function App() {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const toggleModalVisible = () => {
+    setModalVisible(!modalVisible);
+  };
+
   return (
     <SafeAreaView style={styles.mainBackground}>
       <Text style={styles.mainText}>ToDoM</Text>
       <ScrollView>
         <ToDoCard />
       </ScrollView>
-      <Button />
+      <Button onButtonPress={toggleModalVisible} />
+      <Modal isVisible={modalVisible} onBackdropPress={toggleModalVisible}>
+        <ModalView />
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -20,8 +31,6 @@ const styles = StyleSheet.create({
   mainBackground: {
     flex: 1,
     backgroundColor: '#FFF2F1',
-    //alignItems: 'center',
-    //justifyContent: 'center',
   },
   mainText: {
     fontSize: 40,

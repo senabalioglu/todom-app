@@ -5,11 +5,10 @@ export default StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         paddingVertical: 20,
-        paddingHorizontal: 32,
         borderRadius: 15,
         elevation: 3,
         backgroundColor: "#5E4646",
-        margin: 35,
+        margin: 28,
     },
     text: {
         fontSize: 16,
