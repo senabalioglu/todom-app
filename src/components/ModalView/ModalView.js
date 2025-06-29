@@ -11,7 +11,9 @@ const ModalView = ({toDoSet, toDoValue, list, setList}) => {
     AsyncStorage.setItem('todo', toDoValue);
     console.log(toDoValue);
     toDoSet('');
-    setList([...list, toDoValue]);
+    const updatedList = [...list, toDoValue];
+    setList(updatedList);
+    AsyncStorage.setItem('todoList', JSON.stringify(updatedList));
   } catch (error) {
     console.log(error);
   }

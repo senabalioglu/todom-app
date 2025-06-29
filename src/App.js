@@ -1,15 +1,31 @@
-import React, {useState} from 'react';
-import {View, Text, SafeAreaView, ScrollView, FlatList} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {Text, SafeAreaView, ScrollView, FlatList} from 'react-native';
 import ToDoCard from './components/ToDoCard/ToDoCard';
 import {StyleSheet} from 'react-native';
 import Button from './components/Button/Button';
 import Modal from 'react-native-modal';
 import ModalView from './components/ModalView/ModalView';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function App() {
   const [modalVisible, setModalVisible] = useState(false);
   const [todo, setTodo] = useState('');
   const [todoList, setTodoList] = useState([]);
+
+  useEffect(() => {
+    const loadTodos = async () => {
+      try {
+        const storedTodos = await AsyncStorage.getItem('todoList');
+        if (storedTodos !== null) {
+          setTodoList(JSON.parse(storedTodos));
+        }
+      } catch (e) {
+        console.error('Veri alınamadı:', e);
+      }
+    };
+
+    loadTodos();
+  }, []);
 
 const setAndLog = (todo) => {
   setTodo(todo);
