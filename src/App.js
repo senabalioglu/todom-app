@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, SafeAreaView, ScrollView} from 'react-native';
+import {View, Text, SafeAreaView, ScrollView, FlatList} from 'react-native';
 import ToDoCard from './components/ToDoCard/ToDoCard';
 import {StyleSheet} from 'react-native';
 import Button from './components/Button/Button';
@@ -8,6 +8,12 @@ import ModalView from './components/ModalView/ModalView';
 
 function App() {
   const [modalVisible, setModalVisible] = useState(false);
+  const [todo, setTodo] = useState('');
+  const [todoList, setTodoList] = useState([]);
+
+const setAndLog = (todo) => {
+  setTodo(todo);
+}
 
   const toggleModalVisible = () => {
     setModalVisible(!modalVisible);
@@ -17,11 +23,16 @@ function App() {
     <SafeAreaView style={styles.mainBackground}>
       <Text style={styles.mainText}>ToDoM</Text>
       <ScrollView>
-        <ToDoCard />
+        <FlatList
+          data={todoList}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({item}) => <ToDoCard toDoText={item} />}
+          scrollEnabled={false}
+        />
       </ScrollView>
       <Button buttonText={'ToDo Ekle'} onButtonPress={toggleModalVisible} />
       <Modal isVisible={modalVisible} onBackdropPress={toggleModalVisible}>
-        <ModalView />
+        <ModalView list={todoList} setList={setTodoList} toDoValue={todo} toDoSet={setAndLog} />
       </Modal>
     </SafeAreaView>
   );
