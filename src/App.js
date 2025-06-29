@@ -35,6 +35,16 @@ const setAndLog = (todo) => {
     setModalVisible(!modalVisible);
   };
 
+  const deleteToDo = async (item) => {
+  const newTodoList = todoList.filter((todo) => todo !== item);
+  setTodoList(newTodoList);
+  await AsyncStorage.setItem('todoList', JSON.stringify(newTodoList));
+};
+
+  const editToDo = () => {
+    //set işlemleri işte biliyon... (üstüne set etcen ama)
+  }
+
   return (
     <SafeAreaView style={styles.mainBackground}>
       <Text style={styles.mainText}>ToDoM</Text>
@@ -42,7 +52,7 @@ const setAndLog = (todo) => {
         <FlatList
           data={todoList}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({item}) => <ToDoCard toDoText={item} />}
+          renderItem={({item}) => <ToDoCard onEditToDo={editToDo} onDeleteToDo={() => deleteToDo(item)} toggleVisible={toggleModalVisible} toDoText={item} />}
           scrollEnabled={false}
         />
       </ScrollView>
