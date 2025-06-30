@@ -1,22 +1,39 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import styles from './ToDoCard.styles';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import CheckBox from '@react-native-community/checkbox';
 
 const ToDoCard = ({toDoText, onDeleteToDo, onEditToDo, toggleVisible}) => {
 
+  const[selected, setSelected] = useState(false);
+
+  const toggleSelected = () => {
+    setSelected(!selected);
+  }
+
+  const isSelectedStyle = {
+    textDecorationLine: selected ? 'line-through' : 'none',
+    fontSize: 20,
+    marginLeft: 15,
+    color: '#7f7f7f',
+  };
+
   return (
     <View style={styles.card}>
-      <Icon name="heart" size={25} color="white" />
-      <Text style={styles.card_text}>{toDoText}</Text>
+      <CheckBox
+      value = {selected}
+      onValueChange={toggleSelected}
+      />
+      <Text style={isSelectedStyle}>{toDoText}</Text>
       <View style={styles.inner_container}>
         <TouchableOpacity onPress={toggleVisible}>
-          <Icon style={styles.icon} name="pencil" size={25} color="white" />
+          <Icon style={styles.icon} name="pencil" size={25} color="#7f7f7f" />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={onDeleteToDo}>
-          <Icon style={styles.icon} name="trash" size={25} color="white" />
+          <Icon style={styles.icon} name="trash" size={25} color="#7f7f7f" />
         </TouchableOpacity>
       </View>
     </View>
