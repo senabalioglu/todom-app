@@ -13,7 +13,7 @@ import Button from './components/Button/Button';
 import Modal from 'react-native-modal';
 import ModalView from './components/ModalView/ModalView';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-//import EditModalView from './components/EditModalView/EditModalView';
+import EditModalView from './components/EditModalView/EditModalView';
 
 function App() {
   const [modalVisible, setModalVisible] = useState(false);
@@ -51,20 +51,18 @@ function App() {
   };
 
   const openEditModal = (item, index) => {
-  setEditedToDo(item);
-  setCurrentToDoIndex(index);
-  toggleEditModalVisible();
-};
+    setEditedToDo(item);
+    setCurrentToDoIndex(index);
+    toggleEditModalVisible();
+  };
 
   const sendEditedToDo = async () => {
-  if (currentToDoIndex !== null) {
     const updatedList = [...todoList];
     updatedList[currentToDoIndex] = editedToDo;
     setTodoList(updatedList);
     await AsyncStorage.setItem('todoList', JSON.stringify(updatedList));
     toggleEditModalVisible();
   }
-};
 
   const deleteToDo = async item => {
     const newTodoList = todoList.filter(todo => todo !== item);
@@ -91,27 +89,21 @@ function App() {
         />
       </ScrollView>
       <Button buttonText={'ToDo Ekle'} onButtonPress={toggleModalVisible} />
-      <Modal isVisible={modalVisible} onBackdropPress={toggleModalVisible}>
+      <Modal isVisible={modalVisible} onBackdropPress={toggleModalVisible} >
         <ModalView
           list={todoList}
           setList={setTodoList}
           toDoValue={todo}
           toDoSet={setAndLog}
+          toggle={toggleModalVisible}
         />
       </Modal>
       <Modal isVisible={editModalVisible} onBackdropPress={toggleEditModalVisible}>
-        <View
-          style={{
-            backgroundColor: 'white',
-            //padding: 15,
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: 15,
-            margin: 5,
-          }}>
-          <TextInput placeholder='Güncel ToDo' value={editedToDo} onChangeText={setEditedToDo}/>
-          <Button buttonText={'Güncelle'} onButtonPress={sendEditedToDo} />
-        </View>
+        <EditModalView
+        editedValue={editedToDo}
+        setEdited={setEditedToDo}
+        sendEdited={sendEditedToDo}
+        />
       </Modal>
     </SafeAreaView>
   );

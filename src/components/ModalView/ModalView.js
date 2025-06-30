@@ -4,7 +4,7 @@ import styles from './ModalView.styles';
 import Button from '../Button/Button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ModalView = ({toDoSet, toDoValue, list, setList}) => {
+const ModalView = ({toDoSet, toDoValue, list, setList, toggle}) => {
 
   const toDoSend = () => {
   try {
@@ -14,6 +14,7 @@ const ModalView = ({toDoSet, toDoValue, list, setList}) => {
     const updatedList = [...list, toDoValue];
     setList(updatedList);
     AsyncStorage.setItem('todoList', JSON.stringify(updatedList));
+    toggle();
   } catch (error) {
     console.log(error);
   }
