@@ -1,16 +1,27 @@
 import React, {useState, useEffect} from 'react';
-import {Text, SafeAreaView, ScrollView, FlatList} from 'react-native';
+import {
+  Text,
+  SafeAreaView,
+  ScrollView,
+  FlatList,
+  View,
+  TextInput,
+} from 'react-native';
 import ToDoCard from './components/ToDoCard/ToDoCard';
 import {StyleSheet} from 'react-native';
 import Button from './components/Button/Button';
 import Modal from 'react-native-modal';
 import ModalView from './components/ModalView/ModalView';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+//import EditModalView from './components/EditModalView/EditModalView';
 
 function App() {
   const [modalVisible, setModalVisible] = useState(false);
+  const [editModalVisible, setEditModalVisible] = useState(false);
   const [todo, setTodo] = useState('');
   const [todoList, setTodoList] = useState([]);
+  const [editedToDo, setEditedToDo] = useState('');
+  const [currentToDoIndex, setCurrentToDoIndex] = useState(null);
 
   useEffect(() => {
     const loadTodos = async () => {
@@ -27,23 +38,39 @@ function App() {
     loadTodos();
   }, []);
 
-const setAndLog = (todo) => {
-  setTodo(todo);
-}
+  const setAndLog = todo => {
+    setTodo(todo);
+  };
 
   const toggleModalVisible = () => {
     setModalVisible(!modalVisible);
   };
 
-  const deleteToDo = async (item) => {
-  const newTodoList = todoList.filter((todo) => todo !== item);
-  setTodoList(newTodoList);
-  await AsyncStorage.setItem('todoList', JSON.stringify(newTodoList));
+  const toggleEditModalVisible = () => {
+    setEditModalVisible(!editModalVisible);
+  };
+
+  const openEditModal = (item, index) => {
+  setEditedToDo(item);
+  setCurrentToDoIndex(index);
+  toggleEditModalVisible();
 };
 
-  const editToDo = () => {
-    //set işlemleri işte biliyon... (üstüne set etcen ama)
+  const sendEditedToDo = async () => {
+  if (currentToDoIndex !== null) {
+    const updatedList = [...todoList];
+    updatedList[currentToDoIndex] = editedToDo;
+    setTodoList(updatedList);
+    await AsyncStorage.setItem('todoList', JSON.stringify(updatedList));
+    toggleEditModalVisible();
   }
+};
+
+  const deleteToDo = async item => {
+    const newTodoList = todoList.filter(todo => todo !== item);
+    setTodoList(newTodoList);
+    await AsyncStorage.setItem('todoList', JSON.stringify(newTodoList));
+  };
 
   return (
     <SafeAreaView style={styles.mainBackground}>
@@ -51,14 +78,40 @@ const setAndLog = (todo) => {
       <ScrollView>
         <FlatList
           data={todoList}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({item}) => <ToDoCard onEditToDo={editToDo} onDeleteToDo={() => deleteToDo(item)} toggleVisible={toggleModalVisible} toDoText={item} />}
+          keyExtractor={index => index.toString()}
+          renderItem={({item, index}) => (
+            <ToDoCard
+              onEditToDo={() => openEditModal(item, index)}
+              onDeleteToDo={() => deleteToDo(item)}
+              toggleVisible={toggleModalVisible}
+              toDoText={item}
+            />
+          )}
           scrollEnabled={false}
         />
       </ScrollView>
       <Button buttonText={'ToDo Ekle'} onButtonPress={toggleModalVisible} />
       <Modal isVisible={modalVisible} onBackdropPress={toggleModalVisible}>
-        <ModalView list={todoList} setList={setTodoList} toDoValue={todo} toDoSet={setAndLog} />
+        <ModalView
+          list={todoList}
+          setList={setTodoList}
+          toDoValue={todo}
+          toDoSet={setAndLog}
+        />
+      </Modal>
+      <Modal isVisible={editModalVisible} onBackdropPress={toggleEditModalVisible}>
+        <View
+          style={{
+            backgroundColor: 'white',
+            //padding: 15,
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 15,
+            margin: 5,
+          }}>
+          <TextInput placeholder='Güncel ToDo' value={editedToDo} onChangeText={setEditedToDo}/>
+          <Button buttonText={'Güncelle'} onButtonPress={sendEditedToDo} />
+        </View>
       </Modal>
     </SafeAreaView>
   );

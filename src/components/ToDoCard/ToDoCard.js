@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import CheckBox from '@react-native-community/checkbox';
 
-const ToDoCard = ({toDoText, onDeleteToDo, onEditToDo, toggleVisible}) => {
+const ToDoCard = ({toDoText, onDeleteToDo, onEditToDo}) => {
 
   const[selected, setSelected] = useState(false);
 
@@ -28,7 +28,7 @@ const ToDoCard = ({toDoText, onDeleteToDo, onEditToDo, toggleVisible}) => {
       />
       <Text style={isSelectedStyle}>{toDoText}</Text>
       <View style={styles.inner_container}>
-        <TouchableOpacity onPress={toggleVisible}>
+        <TouchableOpacity onPress={onEditToDo}>
           <Icon style={styles.icon} name="pencil" size={25} color="#7f7f7f" />
         </TouchableOpacity>
 
