@@ -15,6 +15,7 @@ const ToDoCard = ({toDoText, onDeleteToDo, onEditToDo}) => {
 
   const isSelectedStyle = {
     textDecorationLine: selected ? 'line-through' : 'none',
+    fontFamily: 'RobotoSlab-Regular',
     fontSize: 20,
     marginLeft: 15,
     color: '#7f7f7f',

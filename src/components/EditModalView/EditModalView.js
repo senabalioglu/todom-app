@@ -9,7 +9,7 @@ const EditModalView = ({editedValue, setEdited, sendEdited}) => {
     <View
       style={styles.modal_container}>
       <TextInput
-        style={{margin: 15, fontSize: 18}} 
+        style={{margin: 15, fontSize: 18, fontFamily: 'RobotoSlab-Regular'}}
         placeholder="Güncel ToDo"
         value={editedValue}
         onChangeText={setEdited}

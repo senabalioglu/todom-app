@@ -72,7 +72,7 @@ function App() {
 
   return (
     <SafeAreaView style={styles.mainBackground}>
-      <Text style={styles.mainText}>ToDoM</Text>
+      <Text style={{ fontFamily: 'RobotoSlab-Bold', fontSize: 50 , margin: 15}}>ToDoM</Text>
       <ScrollView>
         <FlatList
           data={todoList}

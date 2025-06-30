@@ -10,6 +10,7 @@ export default StyleSheet.create({
     padding: 10,
   },
   card_text:{
+    fontFamily: 'RobotoSlab-Regular',
     fontSize: 20,
     marginLeft: 15,
     color: 'white',

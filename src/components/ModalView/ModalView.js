@@ -22,7 +22,7 @@ const ModalView = ({toDoSet, toDoValue, list, setList, toggle}) => {
   
   return (
     <View style={styles.modal_container}>
-      <TextInput style={{margin: 15, fontSize: 18}} placeholder="ToDo girin..." value={toDoValue} onChangeText={toDoSet} />
+      <TextInput style={{margin: 15, fontSize: 18, fontFamily: 'RobotoSlab-Regular'}} placeholder="ToDo girin..." value={toDoValue} onChangeText={toDoSet} />
       <Button  buttonText={"Gönder"} onButtonPress={toDoSend}/>
     </View>
   );

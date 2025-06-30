@@ -11,9 +11,9 @@ export default StyleSheet.create({
         margin: 24,
     },
     text: {
+        fontFamily: 'RobotoSlab-Bold',
         fontSize: 16,
         lineHeight: 21,
-        fontWeight: "bold",
         letterSpacing: 0.25,
         color: "white",
     },
