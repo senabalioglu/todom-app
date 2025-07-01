@@ -14,8 +14,15 @@ import Modal from 'react-native-modal';
 import ModalView from './components/ModalView/ModalView';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import EditModalView from './components/EditModalView/EditModalView';
+import { darkTheme, lightTheme } from '../theme';
+import { useColorScheme } from 'react-native';
+import { Switch } from 'react-native';
 
 function App() {
+
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  const theme = isDarkMode ? darkTheme : lightTheme;
+
   const [modalVisible, setModalVisible] = useState(false);
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [todo, setTodo] = useState('');
@@ -71,14 +78,21 @@ function App() {
   };
 
   return (
-    <SafeAreaView style={styles.mainBackground}>
-      <Text style={{ fontFamily: 'RobotoSlab-Bold', fontSize: 50 , margin: 15}}>ToDoM</Text>
+    <SafeAreaView style={[styles.mainBackground, {backgroundColor: theme.background}]}>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between', margin: 15}} >
+      <Text style={{ fontFamily: 'RobotoSlab-Bold', fontSize: 50 , color: theme.main_text}}>ToDoM</Text>
+      <Switch value={isDarkMode} onValueChange={(value) => setIsDarkMode(value)} />
+      </View>
       <ScrollView>
         <FlatList
           data={todoList}
           keyExtractor={index => index.toString()}
           renderItem={({item, index}) => (
             <ToDoCard
+              toDoTextTheme={theme.text}
+              iconTheme={theme.icon}
+              checkBoxTrueTheme={theme.check_box_true}
+              checkBoxFalseTheme={theme.check_box_false}
               onEditToDo={() => openEditModal(item, index)}
               onDeleteToDo={() => deleteToDo(item)}
               toggleVisible={toggleModalVisible}
@@ -88,7 +102,7 @@ function App() {
           scrollEnabled={false}
         />
       </ScrollView>
-      <Button buttonText={'ToDo Ekle'} onButtonPress={toggleModalVisible} />
+      <Button toDoButtonText={theme.button_text} buttonText={'ToDo Ekle'} onButtonPress={toggleModalVisible} />
       <Modal isVisible={modalVisible} onBackdropPress={toggleModalVisible} >
         <ModalView
           list={todoList}
@@ -112,7 +126,7 @@ function App() {
 const styles = StyleSheet.create({
   mainBackground: {
     flex: 1,
-    backgroundColor: '#FFF2F1',
+    //backgroundColor: 'white',
   },
   mainText: {
     fontSize: 40,

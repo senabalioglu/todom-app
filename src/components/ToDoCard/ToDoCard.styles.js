@@ -9,18 +9,16 @@ export default StyleSheet.create({
     alignItems: 'center',
     padding: 10,
   },
-  card_text:{
-    fontFamily: 'RobotoSlab-Regular',
-    fontSize: 20,
-    marginLeft: 15,
-    color: 'white',
-  },
   inner_container: {
     flexDirection: 'row',
     position: 'absolute',
     right: 15,
   },
-  icon: {
-    marginRight: 10,
+  
+  todo_text: {
+    fontFamily: 'RobotoSlab-Regular',
+    fontSize: 20,
+    marginLeft: 15,
+    //color: '#7f7f7f', // bu sabit kalacaksa burada olur
   },
 });
