@@ -6,18 +6,20 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ModalView = ({toDoSet, toDoValue, list, setList, toggle}) => {
   const [inputHeight, setInputHeight] = useState(40);
-  
+
   const toDoSend = () => {
-    try {
-      AsyncStorage.setItem('todo', toDoValue);
-      console.log(toDoValue);
-      toDoSet('');
-      const updatedList = [...list, toDoValue];
-      setList(updatedList);
-      AsyncStorage.setItem('todoList', JSON.stringify(updatedList));
-      toggle();
-    } catch (error) {
-      console.log(error);
+    if (toDoValue) {
+      try {
+        AsyncStorage.setItem('todo', toDoValue);
+        console.log(toDoValue);
+        toDoSet('');
+        const updatedList = [...list, toDoValue];
+        setList(updatedList);
+        AsyncStorage.setItem('todoList', JSON.stringify(updatedList));
+        toggle();
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 

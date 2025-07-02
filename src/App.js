@@ -14,12 +14,11 @@ import Modal from 'react-native-modal';
 import ModalView from './components/ModalView/ModalView';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import EditModalView from './components/EditModalView/EditModalView';
-import { darkTheme, lightTheme } from '../theme';
-import { useColorScheme } from 'react-native';
-import { Switch } from 'react-native';
+import {darkTheme, lightTheme} from '../theme';
+import {useColorScheme} from 'react-native';
+import {Switch} from 'react-native';
 
 function App() {
-
   const [isDarkMode, setIsDarkMode] = useState(false);
   const theme = isDarkMode ? darkTheme : lightTheme;
 
@@ -64,12 +63,14 @@ function App() {
   };
 
   const sendEditedToDo = async () => {
-    const updatedList = [...todoList];
-    updatedList[currentToDoIndex] = editedToDo;
-    setTodoList(updatedList);
-    await AsyncStorage.setItem('todoList', JSON.stringify(updatedList));
-    toggleEditModalVisible();
-  }
+    if (editedToDo) {
+      const updatedList = [...todoList];
+      updatedList[currentToDoIndex] = editedToDo;
+      setTodoList(updatedList);
+      await AsyncStorage.setItem('todoList', JSON.stringify(updatedList));
+      toggleEditModalVisible();
+    }
+  };
 
   const deleteToDo = async item => {
     const newTodoList = todoList.filter(todo => todo !== item);
@@ -78,10 +79,26 @@ function App() {
   };
 
   return (
-    <SafeAreaView style={[styles.mainBackground, {backgroundColor: theme.background}]}>
-      <View style={{flexDirection: 'row', justifyContent: 'space-between', margin: 20}} >
-      <Text style={{ fontFamily: 'RobotoSlab-Bold', fontSize: 50 , color: theme.main_text}}>ToDoM</Text>
-      <Switch value={isDarkMode} onValueChange={(value) => setIsDarkMode(value)} />
+    <SafeAreaView
+      style={[styles.mainBackground, {backgroundColor: theme.background}]}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          margin: 20,
+        }}>
+        <Text
+          style={{
+            fontFamily: 'RobotoSlab-Bold',
+            fontSize: 50,
+            color: theme.main_text,
+          }}>
+          ToDoM
+        </Text>
+        <Switch
+          value={isDarkMode}
+          onValueChange={value => setIsDarkMode(value)}
+        />
       </View>
       <ScrollView>
         <FlatList
@@ -102,8 +119,12 @@ function App() {
           scrollEnabled={false}
         />
       </ScrollView>
-      <Button toDoButtonText={theme.button_text} buttonText={'ToDo Ekle'} onButtonPress={toggleModalVisible} />
-      <Modal isVisible={modalVisible} onBackdropPress={toggleModalVisible} >
+      <Button
+        toDoButtonText={theme.button_text}
+        buttonText={'ToDo Ekle'}
+        onButtonPress={toggleModalVisible}
+      />
+      <Modal isVisible={modalVisible} onBackdropPress={toggleModalVisible}>
         <ModalView
           list={todoList}
           setList={setTodoList}
@@ -112,11 +133,13 @@ function App() {
           toggle={toggleModalVisible}
         />
       </Modal>
-      <Modal isVisible={editModalVisible} onBackdropPress={toggleEditModalVisible}>
+      <Modal
+        isVisible={editModalVisible}
+        onBackdropPress={toggleEditModalVisible}>
         <EditModalView
-        editedValue={editedToDo}
-        setEdited={setEditedToDo}
-        sendEdited={sendEditedToDo}
+          editedValue={editedToDo}
+          setEdited={setEditedToDo}
+          sendEdited={sendEditedToDo}
         />
       </Modal>
     </SafeAreaView>
