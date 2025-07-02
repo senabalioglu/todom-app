@@ -4,10 +4,12 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   modal_container: {
     backgroundColor: 'white',
-    //padding: 15,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15,
     margin: 5,
   },
+  text_input:{
+    margin: 15, fontSize: 18, fontFamily: 'RobotoSlab-Regular',
+  }
 });

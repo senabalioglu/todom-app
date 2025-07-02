@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import styles from './ToDoCard.styles';
 import Icon from 'react-native-vector-icons/Ionicons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import CheckBox from '@react-native-community/checkbox';
 
 const ToDoCard = ({
@@ -24,8 +23,8 @@ const ToDoCard = ({
     <View style={styles.card}>
       <CheckBox
         tintColors={{
-          true: checkBoxTrueTheme, // seçili (checked)
-          false: checkBoxFalseTheme, // seçili değil (unchecked)
+          true: checkBoxTrueTheme,
+          false: checkBoxFalseTheme,
         }}
         value={selected}
         onValueChange={toggleSelected}

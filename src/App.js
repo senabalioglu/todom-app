@@ -79,7 +79,7 @@ function App() {
 
   return (
     <SafeAreaView style={[styles.mainBackground, {backgroundColor: theme.background}]}>
-      <View style={{flexDirection: 'row', justifyContent: 'space-between', margin: 15}} >
+      <View style={{flexDirection: 'row', justifyContent: 'space-between', margin: 20}} >
       <Text style={{ fontFamily: 'RobotoSlab-Bold', fontSize: 50 , color: theme.main_text}}>ToDoM</Text>
       <Switch value={isDarkMode} onValueChange={(value) => setIsDarkMode(value)} />
       </View>
@@ -126,7 +126,6 @@ function App() {
 const styles = StyleSheet.create({
   mainBackground: {
     flex: 1,
-    //backgroundColor: 'white',
   },
   mainText: {
     fontSize: 40,
