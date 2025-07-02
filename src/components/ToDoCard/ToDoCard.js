@@ -30,7 +30,10 @@ const ToDoCard = ({
         value={selected}
         onValueChange={toggleSelected}
       />
-      <Text
+      <View style={styles.todo_text_view} >
+        <Text
+        numberOfLines={4}
+        ellipsizeMode='tail'
         style={[
           styles.todo_text,
           {
@@ -40,6 +43,7 @@ const ToDoCard = ({
         ]}>
         {toDoText}
       </Text>
+      </View>
       <View style={styles.inner_container}>
         <TouchableOpacity onPress={onEditToDo}>
           <Icon
@@ -48,7 +52,6 @@ const ToDoCard = ({
             size={25}
           />
         </TouchableOpacity>
-
         <TouchableOpacity onPress={onDeleteToDo}>
           <Icon style={{color: iconTheme}} name="trash" size={25} />
         </TouchableOpacity>

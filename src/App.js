@@ -20,7 +20,7 @@ import { Switch } from 'react-native';
 
 function App() {
 
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const theme = isDarkMode ? darkTheme : lightTheme;
 
   const [modalVisible, setModalVisible] = useState(false);
